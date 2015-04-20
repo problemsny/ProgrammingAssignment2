@@ -1,15 +1,37 @@
-## Put comments here that give an overall description of what your
-## functions do
+## This is for Coursera Assignment #2
+## The ability to cache a matrix - To return the cache if it exists.
 
-## Write a short comment describing this function
+## makeCasheMatrix - Matrix to cache matrix inversions.
 
 makeCacheMatrix <- function(x = matrix()) {
-
+     creatematrix <- function(x = matrix()) {
+          m <- NULL
+          set <- function(y) {
+               x <<- y
+               m <<- NULL
+          }
+          get <- function() x
+          setsolve <- function(solve) m <<- solve
+          getsolve <- function() m
+          list(set = set, get = get,
+               setsolve = setsolve,
+               getsolve = getsolve)
+     }
 }
 
 
-## Write a short comment describing this function
+## cacheSolve - Test if cached, otherwise solve and return
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+     cachesolve <- function(x, ...) {
+          m <- x$getsolve()
+          if(!is.null(m)) {
+               message("getting cached data")
+               return(m)
+          }
+          data <- x$get()
+          m <- solve(data, ...)
+          x$setsolve(m)
+          m
+     }
 }
